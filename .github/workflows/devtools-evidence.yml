@@ -1,0 +1,53 @@
+name: Capture real DevTools evidence
+on:
+  push:
+    branches: [evidence/devtools-20261126]
+    paths: [.github/workflows/devtools-evidence.yml, tools/capture_devtools.py]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    env:
+      SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+      SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install capture tools outside the application
+        run: |
+          python -m pip install playwright==1.56.0 websocket-client==1.8.0 mss==10.1.0
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb xdotool
+      - name: Capture actual browser evidence
+        run: xvfb-run --server-args="-screen 0 1920x1400x24" python tools/capture_devtools.py
+      - name: Retain capture output on the evidence branch
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+          names = ['network-list.png','console-error.png','capture-devtools.json','capture-debug.png','capture-debug.json']
+          files = [str(Path('docs') / name) for name in names if (Path('docs') / name).exists()]
+          if files:
+              subprocess.run(['git','config','user.name','github-actions[bot]'],check=True)
+              subprocess.run(['git','config','user.email','41898282+github-actions[bot]@users.noreply.github.com'],check=True)
+              subprocess.run(['git','add','--',*files],check=True)
+              if subprocess.run(['git','diff','--cached','--quiet']).returncode:
+                  subprocess.run(['git','commit','-m','Capture live Chrome DevTools evidence [skip ci]'],check=True)
+                  subprocess.run(['git','push'],check=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: actual-devtools-evidence
+          path: |
+            docs/network-list.png
+            docs/console-error.png
+            docs/capture-devtools.json
+            docs/capture-debug.png
+            docs/capture-debug.json
