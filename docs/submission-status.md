@@ -34,7 +34,7 @@ required DevTools screenshots. The local HTTP launch was checked separately.
 | Live browser behavior | Nine real REST checks passed through the connected browser: catalog, filters, empty search, known and unknown Detail ids, featured rows, and both protected order tables. See `live-checks.json`. The automated local terminal could not connect; genuine local app screenshots remain pending. |
 | `docs/network-list.png` | Pending real personal-database request in DevTools, including query, 200 and JSON Response. No placeholder image was created. |
 | `docs/console-error.png` | Pending a genuine Console + rendered error screenshot after deliberately blocking the real request. No placeholder image was created. |
-| Own GitHub repo | Created: `Frannaaa/slotdrop-fran-individual`. Prepared source is being published to main; the submission tag remains pending the required screenshots. |
+| Own GitHub repo | Created: `Frannaaa/slotdrop-fran-individual`. Source is published on main. The submission tag remains pending the required screenshots. |
 | `ia-b-v1.0` tag | Not created yet. It must include the completed evidence. After reviewing and committing everything, `tools/publish.ps1` validates the required files and pushes main plus the tag without a force push. |
 | Personal recording | Fran must make the required unedited recording in her own voice, without AI, at most 90 seconds. Setup and evidence steps are in recording-checklist.md; no AI narration script is supplied. |
 | Reflection and Canvas | Fran should confirm the technical reflection matches her understanding, then submit the repo and recording on Canvas. |
