@@ -1,8 +1,32 @@
 {
   "method": "Actual headful Chrome and its official DevTools frontend, captured together through Xvfb on a GitHub-hosted Linux runner. No mocked responses or reconstructed screenshots.",
-  "source_commit": "9d8450a5884c9b94927a471fbc6cb152930b4a15",
+  "source_commit": "c2621ed5ce4a2d3bf4994dfd0691899acb033bb9",
   "screenshots": [],
   "restored": false,
-  "chrome": "Chrome/158.0.8127.36",
-  "error": "RuntimeError('{\\'exceptionId\\': 1, \\'text\\': \"Uncaught (in promise) TypeError: Failed to resolve module specifier \\'./ui/legacy/legacy.js\\'\", \\'lineNumber\\': 0, \\'columnNumber\\': 0, \\'exception\\': {\\'type\\': \\'object\\', \\'subtype\\': \\'error\\', \\'className\\': \\'TypeError\\', \\'description\\': \"TypeError: Failed to resolve module specifier \\'./ui/legacy/legacy.js\\'\\\\n    at <anonymous>:1:30\\\\n    at <anonymous>:1:166\", \\'objectId\\': \\'3833101409187641539.1.1\\'}}')"
+  "chrome": "Chrome/157.0.8103.78",
+  "filtered_request": {
+    "url": "https://eriuqbxaccfugademqki.supabase.co/rest/v1/products?select=id%2Csku%2Cname%2Ccategory%2Cprice%2Cstock%2Cimage_url&order=name.asc%2Cid.asc&name=ilike.*Laro*",
+    "status": 200,
+    "rows": [
+      {
+        "id": 2,
+        "sku": "SD-LARO-WHEEL",
+        "name": "Laro Ceramics: Beginner's wheel-throwing",
+        "category": "Pottery",
+        "price": 3200.0,
+        "stock": 2,
+        "image_url": "./assets/laro-wheel.webp"
+      },
+      {
+        "id": 1,
+        "sku": "SD-LARO-MUG",
+        "name": "Laro Ceramics: Mug-making + painting",
+        "category": "Pottery",
+        "price": 3000.0,
+        "stock": 6,
+        "image_url": "./assets/laro-mug.webp"
+      }
+    ]
+  },
+  "error": "RuntimeError(\"{'exceptionId': 40, 'text': 'Uncaught (in promise) Error: The real filtered request is missing from DevTools', 'lineNumber': 5, 'columnNumber': 29, 'scriptId': '195', 'stackTrace': {'callFrames': [{'functionName': '', 'scriptId': '195', 'url': '', 'lineNumber': 4, 'columnNumber': 28}]}, 'exception': {'type': 'object', 'subtype': 'error', 'className': 'Error', 'description': 'Error: The real filtered request is missing from DevTools\\\\n    at <anonymous>:5:29', 'objectId': '-123716508258388249.2.40'}}\")"
 }
