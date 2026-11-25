@@ -110,7 +110,9 @@ try:
     frontend = wait_for(lambda: next((target for target in http_json('http://127.0.0.1:9222/json/list') if target['id'] == frontend_id and target.get('webSocketDebuggerUrl')), None))
     dev = CDP(frontend['webSocketDebuggerUrl'])
     print('Opened genuine Chrome DevTools frontend', flush=True)
-    dev.evaluate("(async()=>{window.evidenceUI=await import('./ui/legacy/legacy.js');await window.evidenceUI.InspectorView.InspectorView.instance().showPanel('network');return true;})()")
+    # Target.createTarget returns before its navigation and DevTools startup complete.
+    # Runtime.evaluate has no script referrer, so module imports need absolute URLs.
+    wait_for(lambda: dev.evaluate("(async()=>{if(location.href==='about:blank'||document.readyState==='loading')return false;window.evidenceUI=await import(new URL('./ui/legacy/legacy.js',location.href).href);await window.evidenceUI.InspectorView.InspectorView.instance().showPanel('network');return true;})()"), timeout=90)
 
     with sync_playwright() as playwright:
         controlled = playwright.chromium.connect_over_cdp('http://127.0.0.1:9222')
@@ -133,7 +135,7 @@ try:
         window_bounds(browser, frontend_id, left=0, top=0, width=1920, height=1400)
         browser.send('Target.activateTarget', {'targetId': frontend_id})
         selected = dev.evaluate("""(async()=>{
-          const logs=await import('./models/logs/logs.js');
+          const logs=await import(new URL('./models/logs/logs.js',location.href).href);
           const panel=await window.evidenceUI.InspectorView.InspectorView.instance().showPanel('network');
           const request=logs.NetworkLog.NetworkLog.instance().requests().find(r=>r.url().includes('/rest/v1/products?')&&r.url().includes('name=ilike')&&r.statusCode===200);
           if(!request)throw new Error('The real filtered request is missing from DevTools');
