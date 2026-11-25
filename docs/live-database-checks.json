@@ -1,0 +1,123 @@
+{
+  "checkedAt": "2026-11-25T15:25:22.468Z",
+  "projectName": "slotdrop-fran-individual",
+  "projectRef": "eriuqbxaccfugademqki",
+  "organization": "Francine de Asis Eccomerce",
+  "region": "ap-southeast-1",
+  "quotedMonthlyCost": 0,
+  "source": "Live Supabase SQL tools; this is not browser REST or DevTools screenshot evidence",
+  "verification": {
+    "products": 8,
+    "orders": 0,
+    "order_items": 0,
+    "rls": [
+      {
+        "table": "order_items",
+        "enabled": true
+      },
+      {
+        "table": "orders",
+        "enabled": true
+      },
+      {
+        "table": "products",
+        "enabled": true
+      }
+    ],
+    "policies": [
+      {
+        "table": "products",
+        "command": "SELECT",
+        "roles": [
+          "anon"
+        ]
+      }
+    ],
+    "anon_grants": [
+      {
+        "table": "products",
+        "privilege": "SELECT"
+      }
+    ],
+    "products_data": [
+      {
+        "id": 1,
+        "sku": "SD-LARO-MUG",
+        "name": "Laro Ceramics: Mug-making + painting",
+        "category": "Pottery",
+        "price": 3000,
+        "stock": 6
+      },
+      {
+        "id": 2,
+        "sku": "SD-LARO-WHEEL",
+        "name": "Laro Ceramics: Beginner's wheel-throwing",
+        "category": "Pottery",
+        "price": 3200,
+        "stock": 2
+      },
+      {
+        "id": 3,
+        "sku": "SD-BUMI-MUG",
+        "name": "Bumi & Ashe: Mug-making workshop",
+        "category": "Pottery",
+        "price": 2650,
+        "stock": 0
+      },
+      {
+        "id": 4,
+        "sku": "SD-BUMI-FREEFORM",
+        "name": "Bumi & Ashe: Free Form Pottery + Paint",
+        "category": "Pottery",
+        "price": 3200,
+        "stock": 5
+      },
+      {
+        "id": 5,
+        "sku": "SD-AMT-HAND",
+        "name": "AMT Ceramics: Hand-Building single session",
+        "category": "Pottery",
+        "price": 2900,
+        "stock": 4
+      },
+      {
+        "id": 6,
+        "sku": "SD-AMT-WHEEL",
+        "name": "AMT Ceramics: Wheel-Throwing Exploratory single session",
+        "category": "Pottery",
+        "price": 2900,
+        "stock": 3
+      },
+      {
+        "id": 7,
+        "sku": "SD-SIP-PAINT",
+        "name": "Sip & Gogh: Open Session painting",
+        "category": "Painting",
+        "price": 1400,
+        "stock": 8
+      },
+      {
+        "id": 8,
+        "sku": "SD-TAHANAN-WHEEL",
+        "name": "Tahanan Pottery: Exploratory Wheel Workshop",
+        "category": "Pottery",
+        "price": 2500,
+        "stock": 6
+      }
+    ]
+  },
+  "expectedSecurityInfo": {
+    "name": "rls_enabled_no_policy",
+    "tables": [
+      "orders",
+      "order_items"
+    ],
+    "reason": "The individual brief requires RLS and no browser-read policies on order tables at this stage.",
+    "reference": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy"
+  },
+  "foreignKeyIndexes": [
+    "order_items_order_id_idx",
+    "order_items_product_id_idx"
+  ],
+  "browserRestVerified": false
+}

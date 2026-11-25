@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3046d8">
+  <meta name="description" content="Find a pottery or painting workshop with SlotDrop, a personal classroom storefront.">
+  <title>SlotDrop | Make room for making</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="root"><p class="boot-message" role="status">Loading SlotDrop. Please wait.</p></div>
+  <noscript><p class="boot-message">Turn on JavaScript to browse the workshop catalog.</p></noscript>
+  <!-- The three CDN runtimes, pinned. No build step or npm dependencies. -->
+  <script crossorigin="anonymous" src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone@7.28.4/babel.min.js"></script>
+  <script type="text/babel" data-type="module" data-presets="react" src="./Catalog.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-11-25T15:31:34.898Z",
+  "environment": "Live personal Supabase REST API, verified through TinyFish browser using the publishable-key header",
+  "runUrl": "https://agent.tinyfish.ai/runs/d806b602-32ab-4bad-b19d-e9e40003e719",
+  "productCount": 8,
+  "narrowedCount": 2,
+  "unknownIdCount": 0,
+  "detailCount": 1,
+  "orderTablesRefused": true,
+  "checks": [
+    {
+      "label": "all_products",
+      "status": 200,
+      "rowCount": 8
+    },
+    {
+      "label": "name_filter",
+      "status": 200,
+      "rowCount": 2
+    },
+    {
+      "label": "category_filter",
+      "status": 200,
+      "rowCount": 1
+    },
+    {
+      "label": "empty_search",
+      "status": 200,
+      "rowCount": 0
+    },
+    {
+      "label": "detail",
+      "status": 200,
+      "rowCount": 1
+    },
+    {
+      "label": "unknown_detail",
+      "status": 200,
+      "rowCount": 0
+    },
+    {
+      "label": "featured",
+      "status": 200,
+      "rowCount": 3
+    },
+    {
+      "label": "orders_private",
+      "status": 403,
+      "rowCount": null
+    },
+    {
+      "label": "order_items_private",
+      "status": 403,
+      "rowCount": null
+    }
+  ],
+  "note": "Real API checks, not the required DevTools screenshots or personal recording."
+}

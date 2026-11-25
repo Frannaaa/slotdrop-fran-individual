@@ -1,0 +1,190 @@
+{
+  "checkedAt": "2026-11-25T14:17:58.950Z",
+  "liveSupabaseVerified": false,
+  "code": {
+    "passed": 20,
+    "total": 20,
+    "command": "node tools/check.mjs",
+    "scope": "Read contracts, request construction, architecture, one computed field, word limits and local source hygiene; controlled responses."
+  },
+  "database": {
+    "passed": 19,
+    "total": 19,
+    "engine": "PostgreSQL via PGlite, local disposable database; not personal Supabase proof",
+    "checks": [
+      {
+        "name": "blank database rebuild has three tables and eight rows",
+        "passed": true
+      },
+      {
+        "name": "all three tables have RLS enabled",
+        "passed": true
+      },
+      {
+        "name": "one anonymous SELECT policy on products and no order policy",
+        "passed": true
+      },
+      {
+        "name": "anon can actually read all eight product rows",
+        "passed": true
+      },
+      {
+        "name": "anon has no insert grant on products",
+        "passed": true
+      },
+      {
+        "name": "anon has no update grant on products",
+        "passed": true
+      },
+      {
+        "name": "anon has no delete grant on products",
+        "passed": true
+      },
+      {
+        "name": "anon has no insert grant on orders",
+        "passed": true
+      },
+      {
+        "name": "anon has no update grant on orders",
+        "passed": true
+      },
+      {
+        "name": "anon has no delete grant on orders",
+        "passed": true
+      },
+      {
+        "name": "anon has no insert grant on order_items",
+        "passed": true
+      },
+      {
+        "name": "anon has no update grant on order_items",
+        "passed": true
+      },
+      {
+        "name": "anon has no delete grant on order_items",
+        "passed": true
+      },
+      {
+        "name": "direct anonymous orders read is refused",
+        "passed": true
+      },
+      {
+        "name": "direct anonymous order_items read is refused",
+        "passed": true
+      },
+      {
+        "name": "authenticated users have no accidental product or order privileges",
+        "passed": true
+      },
+      {
+        "name": "sold-out and low-stock records exist as stored data",
+        "passed": true
+      },
+      {
+        "name": "constraints reject negative stock and invalid order quantities",
+        "passed": true
+      },
+      {
+        "name": "schema and seed re-run without duplicates or overwriting edited stock",
+        "passed": true
+      }
+    ]
+  },
+  "browser": {
+    "passed": 20,
+    "total": 20,
+    "method": "Browser component tests using actual React 18.3.1, Babel 7.28.4 and project module sources on a local blank document with mock fetch; test-only config injection and mounting. Not end-to-end HTTP navigation, live Supabase evidence or DevTools submission screenshots.",
+    "checks": [
+      {
+        "name": "Home renders three featured fixture rows",
+        "passed": true
+      },
+      {
+        "name": "Browse renders eight unique rows and the stored sold-out item",
+        "passed": true
+      },
+      {
+        "name": "search reaches API, narrows results and can be retried unchanged",
+        "passed": true
+      },
+      {
+        "name": "empty search names the phrase and Reset restores the catalog",
+        "passed": true
+      },
+      {
+        "name": "category filter is sent to API",
+        "passed": true
+      },
+      {
+        "name": "Detail renders one row fetched by id",
+        "passed": true
+      },
+      {
+        "name": "unknown numeric id is a not-found state after 200 []",
+        "passed": true
+      },
+      {
+        "name": "missing and malformed detail ids do not break the request",
+        "passed": true
+      },
+      {
+        "name": "error and working Retry on ?screen=browse",
+        "passed": true
+      },
+      {
+        "name": "error and working Retry on ?screen=detail&id=2",
+        "passed": true
+      },
+      {
+        "name": "error and working Retry on Home",
+        "passed": true
+      },
+      {
+        "name": "Home empty state stays useful",
+        "passed": true
+      },
+      {
+        "name": "loading state contains words on Browse",
+        "passed": true
+      },
+      {
+        "name": "loading state contains words on Detail",
+        "passed": true
+      },
+      {
+        "name": "loading state contains words on Home",
+        "passed": true
+      },
+      {
+        "name": "375px home has no horizontal scrolling and useful tap targets",
+        "passed": true
+      },
+      {
+        "name": "375px browse has no horizontal scrolling and useful tap targets",
+        "passed": true
+      },
+      {
+        "name": "375px detail has no horizontal scrolling and useful tap targets",
+        "passed": true
+      },
+      {
+        "name": "sold-out Detail still has working catalog navigation, no pretend booking",
+        "passed": true
+      },
+      {
+        "name": "no uncaught JavaScript exceptions across tested flows",
+        "passed": true
+      }
+    ]
+  },
+  "launcher": {
+    "passed": true,
+    "scope": "start.ps1 -NoBrowser -CheckOnly served the real individual module over local HTTP and stopped its own test server."
+  },
+  "limitations": [
+    "Personal Supabase is not connected or provisioned yet.",
+    "Browser component tests do not prove the actual CDN-to-Supabase network flow.",
+    "Internal fixture previews do not satisfy the two required DevTools screenshots.",
+    "No personal voice recording, remote GitHub repository or release tag has been fabricated."
+  ]
+}
