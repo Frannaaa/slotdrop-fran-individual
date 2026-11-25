@@ -1,0 +1,8 @@
+{
+  "method": "Actual headful Chrome and its official DevTools frontend, captured together through Xvfb on a GitHub-hosted Linux runner. No mocked responses or reconstructed screenshots.",
+  "source_commit": "9d8450a5884c9b94927a471fbc6cb152930b4a15",
+  "screenshots": [],
+  "restored": false,
+  "chrome": "Chrome/158.0.8127.36",
+  "error": "RuntimeError('{\\'exceptionId\\': 1, \\'text\\': \"Uncaught (in promise) TypeError: Failed to resolve module specifier \\'./ui/legacy/legacy.js\\'\", \\'lineNumber\\': 0, \\'columnNumber\\': 0, \\'exception\\': {\\'type\\': \\'object\\', \\'subtype\\': \\'error\\', \\'className\\': \\'TypeError\\', \\'description\\': \"TypeError: Failed to resolve module specifier \\'./ui/legacy/legacy.js\\'\\\\n    at <anonymous>:1:30\\\\n    at <anonymous>:1:166\", \\'objectId\\': \\'3833101409187641539.1.1\\'}}')"
+}
