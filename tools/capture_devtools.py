@@ -138,7 +138,9 @@ try:
         browser.send('Target.activateTarget', {'targetId': frontend_id})
         selected = wait_for(lambda: dev.evaluate("""(async()=>{
           const logs=await import(new URL('./models/logs/logs.js',location.href).href);
-          const panel=await window.evidenceUI.InspectorView.InspectorView.instance().showPanel('network');
+          await window.evidenceUI.InspectorView.InspectorView.instance().showPanel('network');
+          const network=await import(new URL('./panels/network/network.js',location.href).href);
+          const panel=network.NetworkPanel.NetworkPanel.instance();
           const request=logs.NetworkLog.NetworkLog.instance().requests().find(r=>r.url().includes('/rest/v1/products?')&&r.url().includes('name=ilike')&&r.statusCode===200);
           if(!request)return false;
           const details=await panel.selectAndActivateRequest(request,'response');
