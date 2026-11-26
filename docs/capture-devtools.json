@@ -1,6 +1,6 @@
 {
   "method": "Actual headful Chrome and its official DevTools frontend, captured together through Xvfb on a GitHub-hosted Linux runner. No mocked responses or reconstructed screenshots.",
-  "source_commit": "756d090c353899e3b64418fd78bd671db3039be9",
+  "source_commit": "ad39f662f78305a3c66270dbcf23b5c845d7d37f",
   "screenshots": [
     "network-list.png",
     "console-error.png"
