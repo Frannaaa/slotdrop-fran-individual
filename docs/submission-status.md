@@ -1,6 +1,6 @@
 # Individual Finals submission status
 
-Checked November 25, 2026. This is the solo React/Supabase assignment,
+Checked November 26, 2026. This is the solo React/Supabase assignment,
 separate from the group Final and its hold/checkout upgrade.
 
 ## Completed locally
@@ -27,15 +27,27 @@ runtime and source modules with controlled fetch responses. They are not
 end-to-end live Supabase proof. Their internal previews are not the two
 required DevTools screenshots. The local HTTP launch was checked separately.
 
-## Still required before this is submission-ready
+## Live evidence and release
 
 | Item | Current state / next action |
 | --- | --- |
-| Live browser behavior | Nine real REST checks passed through the connected browser: catalog, filters, empty search, known and unknown Detail ids, featured rows, and both protected order tables. See `live-checks.json`. The automated local terminal could not connect; genuine local app screenshots remain pending. |
-| `docs/network-list.png` | Pending real personal-database request in DevTools, including query, 200 and JSON Response. No placeholder image was created. |
-| `docs/console-error.png` | Pending a genuine Console + rendered error screenshot after deliberately blocking the real request. No placeholder image was created. |
-| Own GitHub repo | Created: `Frannaaa/slotdrop-fran-individual`. Source is published on main. The submission tag remains pending the required screenshots. |
-| `ia-b-v1.0` tag | Not created yet. It must include the completed evidence. After reviewing and committing everything, `tools/publish.ps1` validates the required files and pushes main plus the tag without a force push. |
+| Live browser behavior | Nine real REST checks passed previously: catalog, filters, empty search, known and unknown Detail ids, featured rows, and both protected order tables. See `live-checks.json`. A fresh headful Chrome run loaded all 8 products, searched Laro with HTTP 200 and 2 actual rows, deliberately blocked the real REST request, displayed the error and Retry control, then unblocked it and verified recovery with no uncaught application exceptions. See `capture-devtools.json`. |
+| `docs/network-list.png` | Genuine Chrome DevTools Network view of the personal Supabase request, with its Laro query, HTTP 200 status and JSON response. |
+| `docs/console-error.png` | Genuine Chrome Console beside the rendered connection-error panel and Retry button after request blocking. |
+| Own GitHub repo | `Frannaaa/slotdrop-fran-individual`; the final code and evidence belong on `main`. The group repository is separate. |
+| Release reference | `ia-b-v1.0` must identify the complete code-and-evidence commit. The personal recording is submitted separately. |
+
+The two unedited screenshots were captured from actual Chrome and its
+built-in DevTools on a GitHub-hosted Linux runner, using the real personal
+database. They are not captures of Fran's own Windows desktop. The capture
+helper and Python dependencies run outside the application; the storefront
+still has no build step or npm dependencies. Failed diagnostic images and
+the temporary capture workflow are not part of the submission tree.
+
+## Remaining personal submission steps
+
+| Item | Current state / next action |
+| --- | --- |
 | Personal recording | Fran must make the required unedited recording in her own voice, without AI, at most 90 seconds. Setup and evidence steps are in recording-checklist.md; no AI narration script is supplied. |
 | Reflection and Canvas | Fran should confirm the technical reflection matches her understanding, then submit the repo and recording on Canvas. |
 

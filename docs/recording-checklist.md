@@ -29,7 +29,13 @@ This breaks the API read without changing the database or configuration.
 Unblock requests and press Retry afterwards to check recovery. Do not
 block all network traffic before the CDN runtimes have loaded.
 
-## Save the two genuine DevTools screenshots
+## The two genuine DevTools screenshots
+
+The required PNG files are included in `docs/`, with their capture method
+and live results in `capture-devtools.json`. They were captured automatically
+from actual headful Chrome on a GitHub-hosted Linux runner, using the personal
+Supabase database. The steps below explain how to reproduce them locally.
+They do not replace the required personal recording.
 
 These must come from the real personal database. Local fixture tests and
 their preview images do not satisfy this evidence requirement.
