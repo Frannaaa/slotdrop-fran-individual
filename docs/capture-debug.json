@@ -1,9 +1,9 @@
 {
   "method": "Actual headful Chrome and its official DevTools frontend, captured together through Xvfb on a GitHub-hosted Linux runner. No mocked responses or reconstructed screenshots.",
-  "source_commit": "c2621ed5ce4a2d3bf4994dfd0691899acb033bb9",
+  "source_commit": "8b86ea29f233889d55e149e1f39ca517edf5ec33",
   "screenshots": [],
   "restored": false,
-  "chrome": "Chrome/157.0.8103.78",
+  "chrome": "Chrome/158.0.8127.36",
   "filtered_request": {
     "url": "https://eriuqbxaccfugademqki.supabase.co/rest/v1/products?select=id%2Csku%2Cname%2Ccategory%2Cprice%2Cstock%2Cimage_url&order=name.asc%2Cid.asc&name=ilike.*Laro*",
     "status": 200,
@@ -28,5 +28,5 @@
       }
     ]
   },
-  "error": "RuntimeError(\"{'exceptionId': 40, 'text': 'Uncaught (in promise) Error: The real filtered request is missing from DevTools', 'lineNumber': 5, 'columnNumber': 29, 'scriptId': '195', 'stackTrace': {'callFrames': [{'functionName': '', 'scriptId': '195', 'url': '', 'lineNumber': 4, 'columnNumber': 28}]}, 'exception': {'type': 'object', 'subtype': 'error', 'className': 'Error', 'description': 'Error: The real filtered request is missing from DevTools\\\\n    at <anonymous>:5:29', 'objectId': '-123716508258388249.2.40'}}\")"
+  "error": "TimeoutError('Browser readiness timeout: {\\'exceptionId\\': 224, \\'text\\': \"Uncaught (in promise) TypeError: Cannot read properties of undefined (reading \\'selectAndActivateRequest\\')\", \\'lineNumber\\': 6, \\'columnNumber\\': 37, \\'scriptId\\': \\'195\\', \\'stackTrace\\': {\\'callFrames\\': [{\\'functionName\\': \\'\\', \\'scriptId\\': \\'195\\', \\'url\\': \\'\\', \\'lineNumber\\': 5, \\'columnNumber\\': 36}]}, \\'exception\\': {\\'type\\': \\'object\\', \\'subtype\\': \\'error\\', \\'className\\': \\'TypeError\\', \\'description\\': \"TypeError: Cannot read properties of undefined (reading \\'selectAndActivateRequest\\')\\\\n    at <anonymous>:6:37\", \\'objectId\\': \\'3382055827297332101.1.224\\'}}')"
 }
