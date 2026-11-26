@@ -143,8 +143,8 @@ try:
           const panel=network.NetworkPanel.NetworkPanel.instance();
           const request=logs.NetworkLog.NetworkLog.instance().requests().find(r=>r.url().includes('/rest/v1/products?')&&r.url().includes('name=ilike')&&r.statusCode===200);
           if(!request)return false;
-          panel.networkLogView.setTextFilterValue('name=ilike');
-          const details=await panel.selectAndActivateRequest(request,'response');
+          panel.networkLogView.setTextFilterValue('method:GET name=ilike');
+          const details=await panel.selectAndActivateRequest(request,'response',{clearFilter:false});
           panel.splitWidget.setSidebarSize(1050);
           panel.networkLogView.switchViewMode(true);
           if(!details)throw new Error('DevTools did not open its real Response view');
