@@ -103,16 +103,18 @@ try:
     app_id = app['id']
     app_cdp = CDP(app['webSocketDebuggerUrl'])
     app_cdp.send('Network.enable')
-    inspector_url = app['devtoolsFrontendUrl']
-    if inspector_url.startswith('/'):
-        inspector_url = 'http://127.0.0.1:9222' + inspector_url
+    # Use Chrome's bundled frontend for its local debugging target. The public
+    # appspot frontend cannot connect to loopback before a local-network prompt.
+    inspector_url = 'devtools://devtools/bundled/devtools_app.html?ws=127.0.0.1:9222/devtools/page/' + app_id
     frontend_id = browser.send('Target.createTarget', {'url': inspector_url, 'newWindow': True})['targetId']
     frontend = wait_for(lambda: next((target for target in http_json('http://127.0.0.1:9222/json/list') if target['id'] == frontend_id and target.get('webSocketDebuggerUrl')), None))
     dev = CDP(frontend['webSocketDebuggerUrl'])
-    print('Opened genuine Chrome DevTools frontend', flush=True)
+    print('Opened genuine bundled Chrome DevTools frontend', flush=True)
     # Target.createTarget returns before its navigation and DevTools startup complete.
     # Runtime.evaluate has no script referrer, so module imports need absolute URLs.
     wait_for(lambda: dev.evaluate("(async()=>{if(location.href==='about:blank'||document.readyState==='loading')return false;window.evidenceUI=await import(new URL('./ui/legacy/legacy.js',location.href).href);await window.evidenceUI.InspectorView.InspectorView.instance().showPanel('network');return true;})()"), timeout=90)
+
+    wait_for(lambda: dev.evaluate("(async()=>{const sdk=await import(new URL('./core/sdk/sdk.js',location.href).href);return sdk.TargetManager.TargetManager.instance().primaryPageTarget()!==null;})()"), timeout=60)
 
     with sync_playwright() as playwright:
         controlled = playwright.chromium.connect_over_cdp('http://127.0.0.1:9222')
@@ -134,15 +136,15 @@ try:
         metadata['filtered_request'] = {'url': response.url, 'status': response.status, 'rows': rows}
         window_bounds(browser, frontend_id, left=0, top=0, width=1920, height=1400)
         browser.send('Target.activateTarget', {'targetId': frontend_id})
-        selected = dev.evaluate("""(async()=>{
+        selected = wait_for(lambda: dev.evaluate("""(async()=>{
           const logs=await import(new URL('./models/logs/logs.js',location.href).href);
           const panel=await window.evidenceUI.InspectorView.InspectorView.instance().showPanel('network');
           const request=logs.NetworkLog.NetworkLog.instance().requests().find(r=>r.url().includes('/rest/v1/products?')&&r.url().includes('name=ilike')&&r.statusCode===200);
-          if(!request)throw new Error('The real filtered request is missing from DevTools');
+          if(!request)return false;
           const details=await panel.selectAndActivateRequest(request,'response');
           if(!details)throw new Error('DevTools did not open its real Response view');
           return {url:request.url(),status:request.statusCode};
-        })()""")
+        })()"""), timeout=45)
         metadata['devtools_selected_request'] = selected
         time.sleep(2)
         # Hover the native URL tooltip so the complete query remains readable.
