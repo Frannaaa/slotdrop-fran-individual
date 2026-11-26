@@ -1,0 +1,45 @@
+name: Tag verified individual release
+on:
+  push:
+    branches: [evidence/devtools-20261126]
+    paths: [.github/workflows/tag-verified-release.yml]
+permissions:
+  contents: write
+jobs:
+  tag:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    env:
+      TARGET_SHA: 1b1b3136036c32b8e887de2c3de6196a4258d536
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 1b1b3136036c32b8e887de2c3de6196a4258d536
+          fetch-depth: 0
+      - name: Verify code and live evidence
+        run: |
+          node tools/check.mjs
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          evidence = json.loads(Path('docs/capture-devtools.json').read_text())
+          assert evidence['restored'] is True
+          assert evidence['uncaught_app_exceptions'] == []
+          assert evidence['filtered_request']['status'] == 200
+          assert len(evidence['filtered_request']['rows']) == 2
+          for name in ('network-list.png', 'console-error.png'):
+              data = (Path('docs') / name).read_bytes()
+              assert data.startswith(bytes.fromhex('89504e470d0a1a0a')) and len(data) > 1000
+          PY
+          test -z "$(git ls-files -- config.js)"
+      - name: Publish the exact verified commit without replacing a tag
+        run: |
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$TARGET_SHA"
+          if git ls-remote --exit-code --tags origin refs/tags/ia-b-v1.0 >/dev/null; then
+            git fetch origin tag ia-b-v1.0
+            test "$(git rev-parse 'ia-b-v1.0^{commit}')" = "$TARGET_SHA"
+          else
+            git tag ia-b-v1.0 "$TARGET_SHA"
+            git push origin refs/tags/ia-b-v1.0
+          fi
