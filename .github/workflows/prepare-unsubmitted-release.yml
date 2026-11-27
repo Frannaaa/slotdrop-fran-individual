@@ -1,0 +1,40 @@
+name: Prepare unsubmitted individual release
+on:
+  push:
+    branches: ['release/ia-b-v1.0-20261128']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: baff14884834f290c491973d6f233f97c902d7ee
+          fetch-depth: 1
+      - name: Require the passing target check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test "$(git rev-parse HEAD)" = baff14884834f290c491973d6f233f97c902d7ee
+          passed=$(gh api "repos/${{ github.repository }}/actions/runs?head_sha=baff14884834f290c491973d6f233f97c902d7ee&event=push" --jq '[.workflow_runs[] | select(.name == "Individual storefront checks" and .conclusion == "success")] | length')
+          test "$passed" -ge 1
+      - name: Point the unsubmitted tag at tested code with a lease
+        run: |
+          desired=baff14884834f290c491973d6f233f97c902d7ee
+          expected=1b1b3136036c32b8e887de2c3de6196a4258d536
+          current=$(git ls-remote origin refs/tags/ia-b-v1.0 | cut -f1)
+          if [ "$current" = "$desired" ]; then
+            echo "Release already points at the verified target."
+            exit 0
+          fi
+          if [ "$current" != "$expected" ]; then
+            echo "Release changed since inspection; refusing to overwrite it."
+            exit 1
+          fi
+          git update-ref refs/tags/ia-b-v1.0 "$desired"
+          git push --force-with-lease=refs/tags/ia-b-v1.0:"$expected" origin refs/tags/ia-b-v1.0:refs/tags/ia-b-v1.0
+          test "$(git ls-remote origin refs/tags/ia-b-v1.0 | cut -f1)" = "$desired"
+          echo "Verified ia-b-v1.0 at $desired."
