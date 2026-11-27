@@ -15,3 +15,12 @@ Fran should edit it if a technical explanation does not reflect her own
 understanding. No voice, video, first-person test experience or human review
 has been invented. The required unedited recording must be Fran's own,
 without AI narration or an AI-written script.
+
+
+## November 27, 2026: startup recovery and browser verification
+
+Fran asked Codex to sweep the individual and group projects for bugs and execute useful fixes. The individual app's launcher, 20 maintainer checks and live REST reads passed. Supabase health and read permissions were verified: 8 products, empty orders/items, RLS on all three, and product-only anonymous SELECT. Informational notices on closed, empty order tables were retained rather than adding public access.
+
+The test browser's network policy blocked all three pinned CDN scripts with ERR_NETWORK_ACCESS_DENIED. The page stayed indefinitely on Loading SlotDrop without a recovery action. Codex added StartupView.js in the View layer: script/bootstrap failures or a 20-second startup timeout show a readable message and Reload. It stops observing when the normal app mounts, leaving fetch states and the one ViewModel-derived availability field unchanged. Local failure/reload checks passed; normal browser navigation requires a separate verified run because this executor blocks the runtime downloads.
+
+A GitHub Actions browser check uses the pinned app CDN scripts and controlled product responses, not a live database or Fran's personal recording. Playwright installs outside the application; no app package.json, node_modules, build step, new product field or hosted schema change is added. The 90-second recording remains Fran's own voice and explanation; no narration script or recording was created. Existing ia-b-v1.0 is preserved while its submission status is clarified.
