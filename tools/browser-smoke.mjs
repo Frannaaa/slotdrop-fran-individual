@@ -45,6 +45,8 @@ try{
     let failAPI=false;
     await context.route(url=>url.hostname==="individual-fixture.supabase.co",async route=>{
       if(failAPI){await route.abort("failed");return;}
+      const headers={"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"apikey,accept","Access-Control-Allow-Methods":"GET,OPTIONS"};
+      if(route.request().method()==="OPTIONS"){await route.fulfill({status:204,headers});return;}
       const query=new URL(route.request().url()).searchParams;
       let rows=fixtures.slice();
       if(query.has("name")){const term=query.get("name").slice(7,-1).toLowerCase();rows=rows.filter(row=>row.name.toLowerCase().includes(term));}
@@ -53,7 +55,7 @@ try{
       if(query.get("stock")==="gt.0")rows=rows.filter(row=>row.stock>0);
       rows.sort(query.get("order")?.startsWith("id.")?(a,b)=>a.id-b.id:(a,b)=>a.name.localeCompare(b.name));
       if(query.has("limit"))rows=rows.slice(0,Number(query.get("limit")));
-      await route.fulfill({status:200,contentType:"application/json",body:JSON.stringify(rows)});
+      await route.fulfill({status:200,headers,contentType:"application/json",body:JSON.stringify(rows)});
     });
     const p=await context.newPage();const errors=[];
     p.on("pageerror",error=>errors.push(error.message));
