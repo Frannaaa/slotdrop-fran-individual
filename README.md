@@ -32,6 +32,7 @@ ignored by Git and must be supplied locally on another machine.
 - `CatalogViewModel.js`: catalog hook, request states, filters and actions.
 - `DetailViewModel.js`: detail hook and missing-id handling.
 - `Catalog.js`: React View, navigation and HTML rendering.
+- `StartupView.js`: readable startup failure and Reload if a required script fails.
 
 Exactly one product field is derived: `availability`. The ViewModels obtain
 it from `availabilityLabel(stock)`; neither SQL nor JSX calculates it.
